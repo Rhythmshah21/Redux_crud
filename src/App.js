@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {BrowserRouter,Routes,Route,Link } from "react-router-dom"
+import Home from './Components/Home';
+import Userlisting from './Components/Userlisting';
+import Adduser from './Components/Adduser';
+import Updateuser from './Components/Updateuser';
+import { ToastContainer } from 'react-toastify';
+import { Provider } from 'react-redux';
+import Store from './redux/Store';
+
+// import Store from './redux/Store';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Provider store={Store}>
+    <div className='App'>
+      <BrowserRouter>
+      <div className='header'>
+          <Link to={'/'}>Home</Link>
+          <Link to={'/user'}>User</Link>
+        </div>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/user' element={<Userlisting/>}/>
+        <Route path='/user/add' element={<Adduser/>}/>
+        <Route path='/user/edit/:code' element={<Updateuser/>}/>
+
+      </Routes>
+      </BrowserRouter>
+      <ToastContainer className="toast-position"
+        position="bottom-right"></ToastContainer>
+
     </div>
+    </Provider>
   );
 }
 
